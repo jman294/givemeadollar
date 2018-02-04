@@ -11,38 +11,40 @@
     <div id="middle">
       Give Me A Dollar
       <form id="form" action="https://wt-a25dcd0be84e112110afd7c58f545428-0.run.webtask.io/stripe" method="post">
-        <div id="credit" type="text" placeholder="1234 5678 0123 4567"></div>
-        <div>
-          <div id="cvc" class="half-l"></div>
-          <div id="exp" class="half-r"></div>
+        <div id="card-element">
+          <!-- a Stripe Element will be inserted here. -->
         </div>
-        <button>Pay <a href="https://github.com/jman294" target="_blank"> Me </a>$1.00</button>
+        <button>Pay Me $1.00</button>
         <p>Secured by <a href="https://stripe.com" target="_blank">stripe &#128274;</a></p>
         <p>One US Dollar will be charged on your card.</p>
+        <a href="https://github.com/jman294" target="_blank">More Info</a>
       </form>
     </div>
     <script>
 var stripe = Stripe('pk_test_71IgCY0ZaYcWBOMauBWsSNlb');
 var elements = stripe.elements();
-var elementStyles = {
+var style = {
   base: {
-    fontFamily: 'monospace',
+    color: '#32325d',
+    lineHeight: '18px',
+    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    fontSmoothing: 'antialiased',
+    fontSize: '16px',
+    '::placeholder': {
+      color: '#aab7c4'
+    }
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
   }
 }
+// Create an instance of the card Element
+var card = elements.create('card', {style: style});
 
+// Add an instance of the card Element into the `card-element` <div>
+card.mount('#card-element');
 
-var cardNumber = elements.create('cardNumber', {
-  style: elementStyles
-});
-cardNumber.mount('#credit');
-
-var cardExpiry = elements.create('cardExpiry', {
-});
-cardExpiry.mount('#exp');
-
-var cardCvc = elements.create('cardCvc', {
-});
-cardCvc.mount('#cvc');
 
 var form = document.getElementById('form')
 
@@ -52,7 +54,7 @@ form.addEventListener('submit', function(e) {
   // Use Stripe.js to create a token. We only need to pass in one Element
   // from the Element group in order to create a token. We can also pass
   // in the additional customer data we collected in our form.
-  stripe.createToken(cardCvc).then(function(result) {
+  stripe.createToken(card).then(function(result) {
 
     if (result.error) {
       // Inform the customer that there was an error

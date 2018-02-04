@@ -14,26 +14,10 @@ body {
   left: 50%;
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
-  width: 40%;
+  width: 20%;
   text-align: center;
   font-family: 'Libre Barcode 39 Text', cursive;
   font-size: 30pt;
-}
-
-#credit, #cvc, #exp {
-  margin-top: 5px;
-  border: 1px solid grey;
-  font-family: monospace;
-  padding: 2px;
-}
-
-.half-l {
-  float: left;
-  width: 61%;
-}
-.half-r {
-  float: right;
-  width: 30%;
 }
 
 button {
@@ -54,4 +38,33 @@ p {
 a {
   text-decoration: none;
   color: #828282;
+  font-family: monospace;
+  font-size: 7pt;
+  padding: 0px;
+}
+
+@media only screen and (max-device-width: 800px) {
+
+  #middle {
+    width: 80%;
+    height: 80%;
+    font-size: 80pt;
+  }
+
+  p {
+    font-size: 24pt;
+  }
+
+  a {
+    font-size: 24pt;
+  }
+
+  button {
+    height: 100px;
+    font-size: 24pt;
+  }
+
+  .StripeElement {
+    font-size: 80pt;
+  }
 }
